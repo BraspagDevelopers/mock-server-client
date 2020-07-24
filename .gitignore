@@ -13,3 +13,5 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+/.vs/ProjectSettings.json
+/.vs/slnx.sqlite

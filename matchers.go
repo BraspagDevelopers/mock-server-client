@@ -37,3 +37,24 @@ func (m RequestMatcher) WithJsonFields(json map[string]interface{}) RequestMatch
 	}
 	return m
 }
+
+type ResponseMatcher struct {
+	Body       BodyMatcher         `json:"body,omitempty"`
+	Headers    map[string][]string `json:"headers,omitempty"`
+	StatusCode int32               `json:"statusCode,omitempty"`
+}
+
+func (m ResponseMatcher) WithJsonFields(json map[string]interface{}) ResponseMatcher {
+	m.Body = BodyMatcher{
+		JSON: json,
+	}
+	return m
+}
+
+func (m ResponseMatcher) WithHeader(key, value string) ResponseMatcher {
+	if m.Headers == nil {
+		m.Headers = make(map[string][]string)
+	}
+	m.Headers[key] = []string{value}
+	return m
+}
