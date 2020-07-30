@@ -41,7 +41,7 @@ func (m RequestMatcher) WithJsonFields(json map[string]interface{}) RequestMatch
 type Expectation struct {
 	Request  RequestMatcher      `json:"httpRequest,omitempty"`
 	Response ExpectationResponse `json:"httpResponse,omitempty"`
-	Priority int32               `json:"priority,omitempty"`
+	Priority int                 `json:"priority,omitempty"`
 }
 
 func NewExpectation(request RequestMatcher) *Expectation {
