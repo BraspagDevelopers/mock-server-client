@@ -55,7 +55,7 @@ func (e Expectation) WithResponse(response ExpectationResponse) Expectation {
 	return e
 }
 
-func (e Expectation) WithPriority(priority int32) Expectation {
+func (e Expectation) WithPriority(priority int) Expectation {
 	e.Priority = priority
 	return e
 }
