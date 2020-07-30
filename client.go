@@ -96,30 +96,15 @@ func (c MockClient) VerifyAndClearByHeader(headerName, headerValue string, match
 	return nil
 }
 
-// Create a new Expectation in mock server with request and response and set the header for both
-func (c MockClient) CreateExpectationWithHeader(headerName, headerValue string, request RequestMatcher, response ResponseMatcher, priority int) error {
-	request.WithHeader(headerName, headerValue)
-	response.WithHeader(headerName, headerValue)
-
-	err := c.CreateExpectation(request, response, priority)
-	return err
-}
-
-// Create a new Expectation in mock server with request and response without the header
-func (c MockClient) CreateExpectation(request RequestMatcher, response ResponseMatcher, priority int) error {
-	payload := map[string]interface{}{
-		"httpRequest":  request,
-		"httpResponse": response,
-		"priority":     priority,
-	}
-
+// Set a new Expectation in mock server with request and response
+func (c MockClient) SetExpectationInServer(expectation Expectation) error {
 	_, err := c.restyClient.NewRequest().
 		SetDoNotParseResponse(true).
-		SetBody(payload).
+		SetBody(expectation).
 		Put("/mockserver/expectation")
 
 	if err != nil {
-		return stacktrace.Propagate(err, "error calling CreateExpectation endpoint")
+		return stacktrace.Propagate(err, "error calling SetExpectation endpoint")
 	}
 
 	return nil
