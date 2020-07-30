@@ -38,20 +38,29 @@ func (m RequestMatcher) WithJsonFields(json map[string]interface{}) RequestMatch
 	return m
 }
 
-type ResponseMatcher struct {
-	Body       BodyMatcher         `json:"body,omitempty"`
-	Headers    map[string][]string `json:"headers,omitempty"`
-	StatusCode int32               `json:"statusCode,omitempty"`
+type Expectation struct {
+	Request  RequestMatcher      `json:"httpRequest,omitempty"`
+	Response ExpectationResponse `json:"httpResponse,omitempty"`
+	Priority int32               `json:"priority,omitempty"`
 }
 
-func (m ResponseMatcher) WithJsonFields(json map[string]interface{}) ResponseMatcher {
-	m.Body = BodyMatcher{
-		JSON: json,
-	}
+type ExpectationResponse struct {
+	Body       map[string]interface{} `json:"body,omitempty"`
+	Headers    map[string][]string    `json:"headers,omitempty"`
+	StatusCode int32                  `json:"statusCode,omitempty"`
+}
+
+func (m ExpectationResponse) NewResponseOK() ExpectationResponse {
+	m.StatusCode = 200
 	return m
 }
 
-func (m ResponseMatcher) WithHeader(key, value string) ResponseMatcher {
+func (m ExpectationResponse) WithJsonBody(json map[string]interface{}) ExpectationResponse {
+	m.Body = json
+	return m
+}
+
+func (m ExpectationResponse) WithHeader(key, value string) ExpectationResponse {
 	if m.Headers == nil {
 		m.Headers = make(map[string][]string)
 	}
