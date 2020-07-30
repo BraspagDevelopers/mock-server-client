@@ -97,7 +97,7 @@ func (c MockClient) VerifyAndClearByHeader(headerName, headerValue string, match
 }
 
 // Set a new Expectation in mock server with request and response
-func (c MockClient) SetExpectationInServer(expectation Expectation) error {
+func (c MockClient) RegisterExpectation(expectation Expectation) error {
 	_, err := c.restyClient.NewRequest().
 		SetDoNotParseResponse(true).
 		SetBody(expectation).
