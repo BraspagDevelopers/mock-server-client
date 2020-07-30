@@ -29,7 +29,7 @@ const (
 	TolerantMatch = "ONLY_MATCHING_FIELDS"
 )
 
-func (m RequestMatcher) WithJsonFields(json map[string]interface{}) RequestMatcher {
+func (m RequestMatcher) WithJSONFields(json map[string]interface{}) RequestMatcher {
 	m.Body = BodyMatcher{
 		Type:      MatchBodyJSON,
 		JSON:      json,
@@ -41,7 +41,7 @@ func (m RequestMatcher) WithJsonFields(json map[string]interface{}) RequestMatch
 type Expectation struct {
 	Request  RequestMatcher      `json:"httpRequest,omitempty"`
 	Response ExpectationResponse `json:"httpResponse,omitempty"`
-	Priority int                 `json:"priority,omitempty"`
+	Priority int32               `json:"priority,omitempty"`
 }
 
 func NewExpectation(request RequestMatcher) *Expectation {
@@ -55,7 +55,7 @@ func (e Expectation) WithResponse(response ExpectationResponse) Expectation {
 	return e
 }
 
-func (e Expectation) WithPriority(priority int) Expectation {
+func (e Expectation) WithPriority(priority int32) Expectation {
 	e.Priority = priority
 	return e
 }
@@ -63,7 +63,7 @@ func (e Expectation) WithPriority(priority int) Expectation {
 type ExpectationResponse struct {
 	Body       map[string]interface{} `json:"body,omitempty"`
 	Headers    map[string][]string    `json:"headers,omitempty"`
-	StatusCode int                    `json:"statusCode,omitempty"`
+	StatusCode int32                  `json:"statusCode,omitempty"`
 }
 
 func NewResponseOK() *ExpectationResponse {
