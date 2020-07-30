@@ -44,26 +44,43 @@ type Expectation struct {
 	Priority int32               `json:"priority,omitempty"`
 }
 
+func NewExpectation(request RequestMatcher) *Expectation {
+	e := new(Expectation)
+	e.Request = request
+	return e
+}
+
+func (e Expectation) WithResponse(response ExpectationResponse) Expectation {
+	e.Response = response
+	return e
+}
+
+func (e Expectation) WithPriority(priority int32) Expectation {
+	e.Priority = priority
+	return e
+}
+
 type ExpectationResponse struct {
 	Body       map[string]interface{} `json:"body,omitempty"`
 	Headers    map[string][]string    `json:"headers,omitempty"`
 	StatusCode int32                  `json:"statusCode,omitempty"`
 }
 
-func (m ExpectationResponse) NewResponseOK() ExpectationResponse {
-	m.StatusCode = 200
-	return m
+func NewResponseOK() *ExpectationResponse {
+	e := new(ExpectationResponse)
+	e.StatusCode = 200
+	return e
 }
 
-func (m ExpectationResponse) WithJsonBody(json map[string]interface{}) ExpectationResponse {
-	m.Body = json
-	return m
+func (e ExpectationResponse) WithJsonBody(json map[string]interface{}) ExpectationResponse {
+	e.Body = json
+	return e
 }
 
-func (m ExpectationResponse) WithHeader(key, value string) ExpectationResponse {
-	if m.Headers == nil {
-		m.Headers = make(map[string][]string)
+func (e ExpectationResponse) WithHeader(key, value string) ExpectationResponse {
+	if e.Headers == nil {
+		e.Headers = make(map[string][]string)
 	}
-	m.Headers[key] = []string{value}
-	return m
+	e.Headers[key] = []string{value}
+	return e
 }
