@@ -63,7 +63,7 @@ func (e Expectation) WithPriority(priority int32) Expectation {
 type ExpectationResponse struct {
 	Body       map[string]interface{} `json:"body,omitempty"`
 	Headers    map[string][]string    `json:"headers,omitempty"`
-	StatusCode int32                  `json:"statusCode,omitempty"`
+	StatusCode int                    `json:"statusCode,omitempty"`
 }
 
 func NewResponseOK() *ExpectationResponse {
