@@ -72,7 +72,7 @@ func NewResponseOK() *ExpectationResponse {
 	return e
 }
 
-func (e ExpectationResponse) WithJsonBody(json map[string]interface{}) ExpectationResponse {
+func (e ExpectationResponse) WithJSONBody(json map[string]interface{}) ExpectationResponse {
 	e.Body = json
 	return e
 }
