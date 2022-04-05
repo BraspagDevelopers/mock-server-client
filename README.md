@@ -49,7 +49,7 @@ err := ms.Verify(
         Method: http.MethodPost,
         Path:   "/api/categories"}.
         WithHeader("Environment", "Development").
-        WithJsonFields(map[string]interface{}{
+        WithJSONFields(map[string]interface{}{
             "name": "Tools",
         }),
     mockserver.Once())
@@ -62,7 +62,7 @@ err := ms.Verify(mockserver.RequestMatcher{
     Method: http.MethodPost,
     Path:   "/api/categories"}.
     WithHeader("Environment", "Development").
-    WithJsonFields(map[string]interface{}{
+    WithJSONFields(map[string]interface{}{
         "name": "Tools",
     }))
 ```
