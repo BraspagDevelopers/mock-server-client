@@ -16,13 +16,19 @@ func (m RequestMatcher) WithHeader(key, value string) RequestMatcher {
 }
 
 type BodyMatcher struct {
-	Type      string                 `json:"type,omitempty"`
-	JSON      map[string]interface{} `json:"json,omitempty"`
-	MatchType string                 `json:"matchType,omitempty"`
+	Type        string                 `json:"type,omitempty"`
+	JSON        map[string]interface{} `json:"json,omitempty"`
+	MatchType   string                 `json:"matchType,omitempty"`
+	SubString   string                 `json:"string,omitempty"`
+	IsSubString bool                   `json:"subString,omitempty"`
+	ContentType string                 `json:"contentType,omitempty"`
+	Regex       string                 `json:"regex,omitempty"`
 }
 
 const (
-	MatchBodyJSON = "JSON"
+	MatchBodyJSON   = "JSON"
+	MatchBodyRegex  = "REGEX"
+	MatchBodyString = "STRING"
 )
 const (
 	StrictMatch   = "STRICT"
